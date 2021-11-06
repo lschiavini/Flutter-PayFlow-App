@@ -1,26 +1,62 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:payflow/modules/home/home_page.dart';
-import 'package:payflow/modules/login/login_page.dart';
-import 'package:payflow/modules/splash/splash_page.dart';
-import 'package:payflow/shared/themes/app_colors.dart';
+import 'package:payflow/app_widget.dart';
 
 void main() {
-  runApp(AppWidget());
+  runApp(AppFirebase());
 }
 
-class AppWidget extends StatelessWidget {
-  const AppWidget({Key? key}) : super(key: key);
+class AppFirebase extends StatefulWidget {
+  const AppFirebase({Key? key}) : super(key: key);
+
+  @override
+  State<AppFirebase> createState() => _AppFirebaseState();
+}
+
+class _AppFirebaseState extends State<AppFirebase> {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return SomethingWentWrong();
+        }
+        if (snapshot.connectionState == ConnectionState.done) {
+          return AppWidget();
+        }
+        return Loading();
+      },
+    );
+  }
+}
+
+class SomethingWentWrong extends StatelessWidget {
+  const SomethingWentWrong({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Pay Flow',
-      theme: ThemeData(
-        primaryColor: AppColors.primary,
+    return Material(
+      child: Center(
+        child: Text(
+          "Não foi possível inicializar o Firebase",
+          textDirection: TextDirection.ltr,
+        ),
       ),
-      home: LoginPage(),
+    );
+  }
+}
+
+class Loading extends StatelessWidget {
+  const Loading({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Center(child: CircularProgressIndicator()),
     );
   }
 }
