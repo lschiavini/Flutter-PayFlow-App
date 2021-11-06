@@ -7,7 +7,7 @@ import 'package:payflow/shared/themes/app_text_styles.dart';
 import 'package:payflow/shared/widgets/social_login/social_login_button.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -60,7 +60,9 @@ class _LoginPageState extends State<LoginPage> {
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 40, right: 40, top: 40),
-                    child: SocialLoginButton(onTap: controller.googleSignIn),
+                    child: SocialLoginButton(onTap: () {
+                      controller.googleSignIn(context);
+                    }),
                   )
                 ],
               ),
