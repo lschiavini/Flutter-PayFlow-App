@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:payflow/modules/splash/login/login_page.dart';
+import 'package:payflow/modules/home/home_page.dart';
+import 'package:payflow/modules/login/login_page.dart';
 import 'package:payflow/modules/splash/splash_page.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 
@@ -15,7 +16,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Pay Flow',
       theme: ThemeData(
         primaryColor: AppColors.primary,
       ),
