@@ -1,12 +1,23 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:payflow/modules/home/home_controller.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final homeController = HomeController();
+  final pages = [
+    Container(color: Colors.red),
+    Container(color: Colors.blue),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +53,51 @@ class HomePage extends StatelessWidget {
               ),
             )),
       ),
+      body: pages[homeController.currentPage],
+      bottomNavigationBar: SizedBox(
+          height: 90,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                  onPressed: () {
+                    setState(() {
+                      homeController.setPage(0);
+                    });
+                  },
+                  icon: Icon(
+                    Icons.home,
+                    color: AppColors.primary,
+                  )),
+              GestureDetector(
+                onTap: () {
+                  print("Tocou me");
+                },
+                child: Container(
+                  height: 56,
+                  width: 56,
+                  decoration: BoxDecoration(
+                    color: AppColors.primary,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.add_box_outlined,
+                          color: AppColors.background)),
+                ),
+              ),
+              IconButton(
+                  onPressed: () {
+                    setState(() {
+                      homeController.setPage(1);
+                    });
+                  },
+                  icon: Icon(
+                    Icons.description_outlined,
+                    color: AppColors.body,
+                  ))
+            ],
+          )),
     );
   }
 }
