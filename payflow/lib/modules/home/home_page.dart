@@ -60,32 +60,38 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
-                  onPressed: () {
-                    setState(() {
-                      homeController.setPage(0);
-                    });
-                  },
-                  icon: Icon(
-                    Icons.home,
-                    color: AppColors.primary,
-                  )),
-              GestureDetector(
-                onTap: () {
-                  print("Tocou me");
+                onPressed: () {
+                  setState(() {
+                    homeController.setPage(0);
+                  });
                 },
-                child: Container(
-                  height: 56,
-                  width: 56,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.add_box_outlined,
-                          color: AppColors.background)),
+                icon: Icon(
+                  Icons.home,
+                  color: AppColors.primary,
                 ),
               ),
+              GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    Navigator.pushNamed(context, "/barcode_scanner");
+                  },
+                  onTapCancel: () {
+                    print("DEU RUIM");
+                  },
+                  child: AbsorbPointer(
+                    child: Container(
+                      height: 56,
+                      width: 56,
+                      decoration: BoxDecoration(
+                        color: AppColors.primary,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.add_box_outlined,
+                              color: AppColors.background)),
+                    ),
+                  )),
               IconButton(
                   onPressed: () {
                     setState(() {
